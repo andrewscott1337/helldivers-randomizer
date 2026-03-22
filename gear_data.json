@@ -1,0 +1,45 @@
+{
+  "primaryWeapons": [
+    "AR-23 Liberator", "AR-23P Liberator Penetrator", "AR-23C Liberator Concussive", "AR-23A Liberator Carbine", 
+    "AR-61 Tenderizer", "BR-14 Adjudicator", "AR-2 Coyote", "AR-32 Pacifier", "AR-59 Suppressor", "MA5C Assault Rifle",
+    "AR/GL-21 One-Two", "StA-52 Assault Rifle", "R-63 Diligence", "R-63CS Diligence Counter Sniper", "R-36 Eruptor", 
+    "R-2124 Constitution", "R-6 Deadeye", "R-72 Censor", "R-2 Amendment", "MP-98 Knight", "SMG-37 Defender", 
+    "SMG-72 Pummeler", "SMG-32 Reprimand", "M7S SMG", "StA-11 SMG", "SMG/FLAM-34 Stoker", "SG-8 Punisher", 
+    "SG-8S Slugger", "SG-225 Breaker", "SG-225SP Breaker Spray&Pray", "SG-225IE Breaker Incendiary", "SG-451 Cookout", 
+    "SG-8P Punisher Plasma", "SG-20 Halt", "SG-97 Sweeper", "M90A Shotgun", "DBS-2 Double Freedom", 
+    "CB-9 Exploding Crossbow", "PLAS-1 Scorcher", "PLAS-39 Accelerator Rifle", "PLAS-101 Purifier", "LAS-5 Scythe", 
+    "LAS-16 Sickle", "LAS-17 Double-Edge Sickle", "LAS-13 Trident", "ARC-12 Blitzer", "VG-70 Variable", 
+    "FLAM-66 Torcher", "JAR-5 Dominator"
+  ],
+  "secondaryWeapons": [
+    "P-2 Peacemaker", "P-19 Redeemer", "P-4 Senator", "P-113 Verdict", "P-92 Warrant", "P-69 Veto", "M6C/SOCOM Pistol", 
+    "P-35 Re-Educator", "GP-31 Grenade Pistol", "GP-20 Ultimatum", "LAS-7 Dagger", "LAS-58 Talon", "P-72 Crisper", 
+    "PLAS-15 Loyalist", "P-11 Stim Pistol", "SG-22 Bushwhacker", "CQC-2 Saber", "CQC-5 Combat Hatchet", 
+    "CQC-19 Stun Lance", "CQC-30 Stun Baton", "CQC-42 Machete", "CQC-73 Entrenchment Tool"
+  ],
+  "grenades": [
+    "G-6 Frag", "G-12 High Explosive", "G-16 Impact", "G-3 Smoke", "G-10 Incendiary", "G-13 Incendiary Impact", 
+    "G-23 Stun", "G-123 Thermite", "G-4 Gas", "G-50 Seeker", "TED-63 Dynamite", "G-142 Pyrotech", "G-109 Urchin", 
+    "G-31 Arc", "G-48 Giga Grenade", "G-7 Pineapple", "K-2 Throwing Knife", "TM-1 Lure Mine", "G-89 Smokescreen", 
+    "G/SH-39 Shield"
+  ],
+  "stratagems": [
+    "Eagle 500kg Bomb", "Eagle Airstrike", "Eagle Cluster Bomb", "Eagle Napalm Airstrike", "Eagle 110mm Rocket Pods", 
+    "Eagle Strafing Run", "Eagle Smoke Strike", "Orbital Precision Strike", "Orbital Gatling Barrage", 
+    "Orbital Airburst Strike", "Orbital 120mm HE Barrage", "Orbital 380mm HE Barrage", "Orbital Walking Barrage", 
+    "Orbital Laser", "Orbital Railcannon Strike", "Orbital Gas Strike", "Orbital EMS Strike", "Orbital Smoke Strike", 
+    "Orbital Napalm Barrage", "AC-8 Autocannon", "APW-1 Anti-Materiel Rifle", "ARC-3 Arc Thrower", 
+    "EAT-17 Expendable Anti-Tank", "EAT-700 Expendable Napalm", "FAF-14 Spear", "FLAM-40 Flamethrower", 
+    "GL-21 Grenade Launcher", "GR-8 Recoilless Rifle", "LAS-98 Laser Cannon", "LAS-99 Quasar Cannon", "M-105 Stalwart", 
+    "MG-206 Heavy Machine Gun", "MG-43 Machine Gun", "MLS-4X Commando", "RS-422 Railgun", "RL-77 Airburst Rocket Launcher", 
+    "StA-X3 W.A.S.P. Launcher", "S-11 Speargun", "TX-41 Sterilizer", "CQC-1 One True Flag", "GL-52 De-Escalator", 
+    "PLAS-45 Epoch", "M-1000 Maxigun", "CQC-9 Defoliation Tool", "CQC-20 Breaching Hammer", "EAT-411 Leveller", 
+    "GL-28 Belt-Fed Grenade Launcher", "B-1 Supply Pack", "AX/AR-23 Guard Dog", "AX/LAS-5 Rover", "LIFT-850 Jump Pack", 
+    "SH-20 Ballistic Shield Backpack", "SH-32 Shield Generator Pack", "B/FLAM-80 Cremator", "B/MD C4 Pack", 
+    "EXO-45 Patriot Exosuit", "EXO-49 Emancipator Exosuit", "M-102 Fast Recon Vehicle", "TD-220 Bastion", 
+    "A/MG-43 Machine Gun Sentry", "A/G-16 Gatling Sentry", "A/M-12 Mortar Sentry", "A/AC-8 Autocannon Sentry", 
+    "A/MLS-4X Rocket Sentry", "A/M-23 EMS Mortar Sentry", "A/ARC-3 Tesla Tower", "A/GM-17 Gas Mortar Sentry", 
+    "MD-6 Anti-Personnel Minefield", "MD-I4 Incendiary Mines", "MD-17 Anti-Tank Mines", "FX-12 Shield Generator Relay", 
+    "E/MG-101 HMG Emplacement", "E/AT-12 Anti-Tank Emplacement", "E/GL-21 Grenadier Battlement", "MS-11 Solo Silo"
+  ]
+}
