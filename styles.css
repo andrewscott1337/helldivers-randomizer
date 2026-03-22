@@ -5,6 +5,11 @@
     --hd-gray: #2A2C2E;
 }
 
+/* 1. THE OVERLAP FIX: Force borders to stay inside their boxes */
+* {
+    box-sizing: border-box;
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -12,134 +17,127 @@ body, html {
     color: var(--hd-yellow);
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
+    /* 2. THE NO-SCROLL FIX: Fit to screen */
     height: 100vh;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
 }
 
-/* CRT Scanline Effect */
+/* CRT Scanline Effect (kept for vibe) */
 .scanlines {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
     background-size: 100% 2px, 3px 100%;
     pointer-events: none;
     z-index: 10;
 }
 
 .terminal-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 2rem;
+    width: 95%;
+    max-width: 1200px; /* Wider to fit 4-across comfortably */
+    margin: auto;
+    padding: 1rem;
     border: 2px solid var(--hd-yellow);
     box-shadow: 0 0 15px rgba(255, 231, 16, 0.2);
-    position: relative;
-    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 95vh; /* Fits within the browser window */
 }
 
 header {
     text-align: center;
     border-bottom: 2px solid var(--hd-blue);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
-h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    letter-spacing: 2px;
-}
-
-.subtitle {
-    color: var(--hd-blue);
-    font-size: 1.2rem;
-}
+h1 { margin: 0; font-size: 1.8rem; }
+.subtitle { color: var(--hd-blue); font-size: 0.9rem; }
 
 .controls {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin: 1rem 0;
 }
 
 button {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
-    font-size: 1.2rem;
-    padding: 1rem 2rem;
     cursor: pointer;
     text-transform: uppercase;
-    transition: all 0.2s ease;
 }
 
 .primary-btn {
     background-color: var(--hd-yellow);
     color: var(--hd-black);
     border: none;
+    padding: 0.8rem 1.5rem;
 }
 
-.primary-btn:hover {
-    background-color: #fff;
-    box-shadow: 0 0 10px var(--hd-yellow);
-}
-
-.secondary-btn {
-    background-color: transparent;
-    color: var(--hd-yellow);
-    border: 2px solid var(--hd-yellow);
-}
-
-.secondary-btn:hover {
-    background-color: var(--hd-yellow);
-    color: var(--hd-black);
-}
-
-.loadout-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+/* 3. THE SYMMETRY FIX: Use Flex rows instead of one giant grid */
+.loadout-row {
+    display: flex;
+    justify-content: center;
     gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex: 1; /* Allows rows to share vertical space equally */
 }
 
-/* Jules will apply these classes to the JS output */
 .gear-card {
     background-color: var(--hd-gray);
     border: 1px solid var(--hd-blue);
-    padding: 1rem;
+    padding: 0.8rem;
     text-align: center;
-    position: relative;
-    height: 320px;
-    width: 220px;
+    width: 180px; /* Narrower to prevent overlap */
+    height: 28vh; /* Scales with your screen height */
+    min-height: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* ANCHOR: Button to bottom, text to top */
+    transition: transform 0.1s ease;
+}
+
+.gear-card:hover {
+    border-color: var(--hd-yellow);
+    transform: scale(1.02);
 }
 
 .gear-card img {
-    max-height: 150px;
+    max-height: 80px; /* Smaller images to ensure they fit in the card */
+    width: auto;
     object-fit: contain;
+    margin: 0 auto;
 }
 
+.gear-name {
+    font-size: 0.8rem;
+    margin: 0.5rem 0;
+    line-height: 1.2;
+}
+
+/* Placeholder stays exact same size as image */
 .gear-image-placeholder {
-    width: 100%;
-    height: 120px;
+    height: 80px;
     background-color: var(--hd-black);
     border: 1px dashed var(--hd-yellow);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
-    font-size: 0.8rem;
-    color: var(--hd-yellow);
+    font-size: 0.7rem;
 }
 
 .exclude-btn {
     background-color: #ff3333;
     color: white;
     border: none;
-    padding: 0.5rem;
+    padding: 0.4rem;
+    font-size: 0.7rem;
     width: 100%;
-    margin-top: auto;
-    font-size: 0.9rem;
+    cursor: pointer;
 }
