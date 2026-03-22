@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             allGear = data;
-            resetPool();
+            initPool();
         })
         .catch(error => console.error('Error fetching gear data:', error));
 
@@ -35,12 +35,34 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('loadout-display').addEventListener('click', handleExclude);
 });
 
+function initPool() {
+    const savedGear = localStorage.getItem('activeGear');
+    if (savedGear) {
+        try {
+            activeGear = JSON.parse(savedGear);
+        } catch (e) {
+            console.error('Error parsing saved gear, resetting:', e);
+            activeGear = JSON.parse(JSON.stringify(allGear));
+        }
+    } else {
+        activeGear = JSON.parse(JSON.stringify(allGear));
+    }
+}
+
+function savePool() {
+    if (activeGear) {
+        localStorage.setItem('activeGear', JSON.stringify(activeGear));
+    }
+}
+
 function resetPool() {
     activeGear = JSON.parse(JSON.stringify(allGear));
+    savePool();
 }
 
 function resetPoolAndClear() {
-    resetPool();
+    localStorage.removeItem('activeGear');
+    activeGear = JSON.parse(JSON.stringify(allGear));
     document.getElementById('loadout-display').innerHTML = '';
 }
 
@@ -113,6 +135,7 @@ function handleExclude(event) {
         const itemIndex = activeGear[category].indexOf(itemName);
         if (itemIndex > -1) {
             activeGear[category].splice(itemIndex, 1);
+            savePool();
         }
 
         rerollSlot(slotKey);
