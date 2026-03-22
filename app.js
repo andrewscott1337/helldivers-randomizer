@@ -95,7 +95,7 @@ function generateLoadout() {
 
 function getImageUrl(itemName) {
     if (!itemName) return '';
-    return encodeURIComponent(itemName.replace(/ /g, '_')) + '_Icon.png';
+    return 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(/ /g, '_')) + '_Icon.png';
 }
 
 function renderLoadout() {
