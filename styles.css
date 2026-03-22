@@ -167,3 +167,21 @@ button {
     margin-top: 1rem;
     font-size: 0.9rem;
 }
+
+@media (max-width: 600px) {
+    body {
+        overflow-y: auto;
+        height: auto;
+    }
+
+    .loadout-row {
+        flex-wrap: wrap;
+    }
+
+    .gear-card, #top-row .gear-card, #bottom-row .gear-card {
+        width: 90%;
+        height: 250px;
+        margin: 10px auto;
+        max-width: none;
+    }
+}
