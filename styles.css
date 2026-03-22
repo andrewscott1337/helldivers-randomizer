@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --hd-yellow: #FFE710;
     --hd-black: #0B0C0D;
@@ -14,6 +18,8 @@ body, html {
     text-transform: uppercase;
     height: 100vh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* CRT Scanline Effect */
@@ -32,11 +38,15 @@ body, html {
 .terminal-container {
     max-width: 900px;
     margin: 2rem auto;
-    padding: 2rem;
+    padding: 1vh;
     border: 2px solid var(--hd-yellow);
     box-shadow: 0 0 15px rgba(255, 231, 16, 0.2);
     position: relative;
     z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 header {
@@ -96,10 +106,13 @@ button {
     color: var(--hd-black);
 }
 
-.loadout-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+.loadout-row {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+    flex-wrap: wrap;
 }
 
 /* Jules will apply these classes to the JS output */
@@ -109,6 +122,18 @@ button {
     padding: 1rem;
     text-align: center;
     position: relative;
+    height: 28vh;
+    width: 20vw;
+    max-width: 200px;
+    font-size: clamp(0.6rem, 1.5vh, 1rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.gear-card img {
+    max-height: 50%;
+    object-fit: contain;
 }
 
 .gear-image-placeholder {
