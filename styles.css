@@ -109,6 +109,16 @@ button {
     padding: 1rem;
     text-align: center;
     position: relative;
+    height: 320px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.gear-card img {
+    max-height: 150px;
+    object-fit: contain;
 }
 
 .gear-image-placeholder {
@@ -130,6 +140,6 @@ button {
     border: none;
     padding: 0.5rem;
     width: 100%;
-    margin-top: 1rem;
+    margin-top: auto;
     font-size: 0.9rem;
 }
