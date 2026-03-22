@@ -1,0 +1,135 @@
+:root {
+    --hd-yellow: #FFE710;
+    --hd-black: #0B0C0D;
+    --hd-blue: #41639C;
+    --hd-gray: #2A2C2E;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: var(--hd-black);
+    color: var(--hd-yellow);
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* CRT Scanline Effect */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.terminal-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 2px solid var(--hd-yellow);
+    box-shadow: 0 0 15px rgba(255, 231, 16, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid var(--hd-blue);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: var(--hd-blue);
+    font-size: 1.2rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.primary-btn {
+    background-color: var(--hd-yellow);
+    color: var(--hd-black);
+    border: none;
+}
+
+.primary-btn:hover {
+    background-color: #fff;
+    box-shadow: 0 0 10px var(--hd-yellow);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--hd-yellow);
+    border: 2px solid var(--hd-yellow);
+}
+
+.secondary-btn:hover {
+    background-color: var(--hd-yellow);
+    color: var(--hd-black);
+}
+
+.loadout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Jules will apply these classes to the JS output */
+.gear-card {
+    background-color: var(--hd-gray);
+    border: 1px solid var(--hd-blue);
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+.gear-image-placeholder {
+    width: 100%;
+    height: 120px;
+    background-color: var(--hd-black);
+    border: 1px dashed var(--hd-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--hd-yellow);
+}
+
+.exclude-btn {
+    background-color: #ff3333;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
