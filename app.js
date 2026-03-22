@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('generate-btn').addEventListener('click', generateLoadout);
     document.getElementById('reset-btn').addEventListener('click', resetPoolAndClear);
-    document.getElementById('loadout-display').addEventListener('click', handleExclude);
+    document.getElementById('top-row').addEventListener('click', handleExclude);
+    document.getElementById('bottom-row').addEventListener('click', handleExclude);
 });
 
 function initPool() {
@@ -63,7 +64,8 @@ function resetPool() {
 function resetPoolAndClear() {
     localStorage.removeItem('activeGear');
     activeGear = JSON.parse(JSON.stringify(allGear));
-    document.getElementById('loadout-display').innerHTML = '';
+    document.getElementById('top-row').innerHTML = '';
+    document.getElementById('bottom-row').innerHTML = '';
 }
 
 function getRandomItem(array) {
@@ -99,12 +101,20 @@ function getImageUrl(itemName) {
 }
 
 function renderLoadout() {
-    const display = document.getElementById('loadout-display');
-    display.innerHTML = '';
+    const topRow = document.getElementById('top-row');
+    const bottomRow = document.getElementById('bottom-row');
+
+    topRow.innerHTML = '';
+    bottomRow.innerHTML = '';
 
     for (const [slotKey, itemName] of Object.entries(currentLoadout)) {
         if (itemName) {
-            display.innerHTML += createCardHTML(itemName, slotKey);
+            const cardHTML = createCardHTML(itemName, slotKey);
+            if (slotCategoryMap[slotKey] === 'stratagems') {
+                bottomRow.innerHTML += cardHTML;
+            } else {
+                topRow.innerHTML += cardHTML;
+            }
         }
     }
 }
