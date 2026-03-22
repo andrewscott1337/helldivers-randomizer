@@ -36,7 +36,8 @@ body, html {
 }
 
 .terminal-container {
-    max-width: 900px;
+    width: 95vw;
+    max-width: 1200px;
     margin: 2rem auto;
     padding: 1vh;
     border: 2px solid var(--hd-yellow);
@@ -112,7 +113,7 @@ button {
     justify-content: center;
     align-items: center;
     gap: 1vw;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 /* Jules will apply these classes to the JS output */
@@ -123,12 +124,20 @@ button {
     text-align: center;
     position: relative;
     height: 28vh;
-    width: 20vw;
-    max-width: 200px;
     font-size: clamp(0.6rem, 1.5vh, 1rem);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+#top-row .gear-card {
+    width: 28vw;
+    max-width: 250px;
+}
+
+#bottom-row .gear-card {
+    width: 20vw;
+    max-width: 200px;
 }
 
 .gear-card img {

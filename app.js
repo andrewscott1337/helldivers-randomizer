@@ -63,7 +63,8 @@ function resetPool() {
 function resetPoolAndClear() {
     localStorage.removeItem('activeGear');
     activeGear = JSON.parse(JSON.stringify(allGear));
-    document.getElementById('loadout-display').innerHTML = '';
+    document.getElementById('top-row').innerHTML = '';
+    document.getElementById('bottom-row').innerHTML = '';
 }
 
 function getRandomItem(array) {
@@ -99,12 +100,18 @@ function getImageUrl(itemName) {
 }
 
 function renderLoadout() {
-    const display = document.getElementById('loadout-display');
-    display.innerHTML = '';
+    const topRow = document.getElementById('top-row');
+    const bottomRow = document.getElementById('bottom-row');
+    topRow.innerHTML = '';
+    bottomRow.innerHTML = '';
 
     for (const [slotKey, itemName] of Object.entries(currentLoadout)) {
         if (itemName) {
-            display.innerHTML += createCardHTML(itemName, slotKey);
+            if (['primaryWeapon', 'secondaryWeapon', 'grenade'].includes(slotKey)) {
+                topRow.innerHTML += createCardHTML(itemName, slotKey);
+            } else {
+                bottomRow.innerHTML += createCardHTML(itemName, slotKey);
+            }
         }
     }
 }
