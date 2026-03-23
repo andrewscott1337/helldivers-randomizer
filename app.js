@@ -94,8 +94,11 @@ function generateLoadout() {
     renderLoadout();
 }
 
-function getImageUrl(itemName) {
+function getImageUrl(itemName, slotKey) {
     if (!itemName) return '';
+    if (slotCategoryMap[slotKey] === 'stratagems') {
+        return `./all-icons/${encodeURI(itemName)}.svg`;
+    }
     return 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(/ /g, '_')) + '_Icon.png';
 }
 
@@ -119,7 +122,7 @@ function renderLoadout() {
 function createCardHTML(itemName, slotKey) {
     // Basic escaping to prevent breaking HTML attributes
     const safeItemName = itemName.replace(/'/g, "&#39;").replace(/"/g, '&quot;');
-    const imgSrc = getImageUrl(itemName);
+    const imgSrc = getImageUrl(itemName, slotKey);
 
     return `
         <div class="gear-card" data-slot="${slotKey}">
