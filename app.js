@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('generate-btn').addEventListener('click', generateLoadout);
     document.getElementById('reset-btn').addEventListener('click', resetPoolAndClear);
-    document.getElementById('loadout-display').addEventListener('click', handleExclude);
+    document.addEventListener('click', handleExclude);
 });
 
 function initPool() {
@@ -94,8 +94,24 @@ function generateLoadout() {
     renderLoadout();
 }
 
-function getImageUrl(itemName) {
+function getImageUrl(itemName, slotKey) {
     if (!itemName) return '';
+    const isStratagem = slotKey && slotKey.startsWith('stratagem');
+
+    if (isStratagem) {
+        let cleanName = itemName;
+
+        // Fix case sensitivity
+        cleanName = cleanName.replace("120mm", "120MM").replace("380mm", "380MM");
+
+        // Strip weapon prefix codes
+        // Matches typical Helldivers prefix format like "M-105 ", "LAS-99 ", "AC-8 ", "A/MG-43 ", etc.
+        // It's safer to use a regex that matches uppercase letters, slashes, numbers, dashes, followed by a space at the start.
+        cleanName = cleanName.replace(/^[A-Z0-9/-]+\s+/, '');
+
+        return `./all-icons/${encodeURI(cleanName)}.svg`;
+    }
+
     return 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(/ /g, '_')) + '_Icon.png';
 }
 
@@ -119,7 +135,7 @@ function renderLoadout() {
 function createCardHTML(itemName, slotKey) {
     // Basic escaping to prevent breaking HTML attributes
     const safeItemName = itemName.replace(/'/g, "&#39;").replace(/"/g, '&quot;');
-    const imgSrc = getImageUrl(itemName);
+    const imgSrc = getImageUrl(itemName, slotKey);
 
     return `
         <div class="gear-card" data-slot="${slotKey}">

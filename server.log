@@ -1,0 +1,23 @@
+127.0.0.1 - - [23/Mar/2026 15:50:46] code 404, message File not found
+127.0.0.1 - - [23/Mar/2026 15:50:46] "GET /robots.txt HTTP/1.1" 404 -
+127.0.0.1 - - [23/Mar/2026 15:50:46] "GET / HTTP/1.0" 200 -
+127.0.0.1 - - [23/Mar/2026 15:52:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 15:52:06] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 15:52:06] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 15:52:07] "GET /gear_data.json HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 15:52:07] code 404, message File not found
+127.0.0.1 - - [23/Mar/2026 15:52:07] "GET /all-icons/Orbital%20120mm%20HE%20Barrage.svg HTTP/1.1" 404 -
+127.0.0.1 - - [23/Mar/2026 15:52:07] code 404, message File not found
+127.0.0.1 - - [23/Mar/2026 15:52:07] "GET /all-icons/M-105%20Stalwart.svg HTTP/1.1" 404 -
+127.0.0.1 - - [23/Mar/2026 15:52:07] "GET /all-icons/Orbital%20Walking%20Barrage.svg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 15:52:07] code 404, message File not found
+127.0.0.1 - - [23/Mar/2026 15:52:07] "GET /all-icons/LAS-99%20Quasar%20Cannon.svg HTTP/1.1" 404 -
+127.0.0.1 - - [23/Mar/2026 16:10:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 16:10:29] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 16:10:29] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 16:10:29] "GET /gear_data.json HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 16:10:30] "GET /all-icons/Tesla%20Tower.svg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 16:10:30] "GET /all-icons/Orbital%20Napalm%20Barrage.svg HTTP/1.1" 200 -
+127.0.0.1 - - [23/Mar/2026 16:10:30] code 404, message File not found
+127.0.0.1 - - [23/Mar/2026 16:10:30] "GET /all-icons/Eagle%20500kg%20Bomb.svg HTTP/1.1" 404 -
+127.0.0.1 - - [23/Mar/2026 16:10:30] "GET /all-icons/Spear.svg HTTP/1.1" 200 -
