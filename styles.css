@@ -196,9 +196,14 @@ button {
 }
 
 @media (max-width: 600px) {
-    body {
+    html, body {
         overflow-y: auto;
         height: auto;
+    }
+
+    .terminal-container {
+        height: auto;
+        margin-bottom: 2rem;
     }
 
     .loadout-row {
@@ -210,5 +215,18 @@ button {
         height: 250px;
         margin: 10px auto;
         max-width: none;
+    }
+}
+
+@media (max-height: 850px) {
+    html, body {
+        overflow-y: auto;
+        height: auto;
+    }
+
+    .terminal-container {
+        height: auto;
+        min-height: 95vh;
+        margin-bottom: 2rem;
     }
 }
