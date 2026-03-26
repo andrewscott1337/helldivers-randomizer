@@ -57,6 +57,25 @@ header {
     margin-bottom: 2rem;
 }
 
+.header-logo {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+    margin-bottom: 1rem;
+}
+
+.title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.title-icon {
+    height: 2.5rem;
+    width: auto;
+}
+
 h1 {
     margin: 0;
     font-size: 2.5rem;
