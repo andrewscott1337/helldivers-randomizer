@@ -1,0 +1,33 @@
+name: Optimize Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'weapon-icons/**/*.png'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Compress Images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compress Images
+        uses: calibreapp/image-actions@main
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          compressOnly: true
+
+      - name: Commit Optimized Images
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(images): auto compress weapon icons"
+          file_pattern: "weapon-icons/**/*.png"
