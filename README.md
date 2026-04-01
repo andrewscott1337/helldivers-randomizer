@@ -4,7 +4,7 @@
 
 Stop "thinking" and start shooting Helldiver! 
 
-Super Earth Command has authorized the use of this **Tactical Loadout Randomizer**. It removes the burden of choice, allowing you to focus 100% of freedom loving brain on squeezing off rounds.
+Super Earth Command has authorized the use of this **Tactical Loadout Randomizer**. It removes the burden of choice, allowing you to focus 100% of your freedom loving brain on squeezing off rounds.
 
 ## 🚀 OPERATION: DATA OVERFLOW
 No longer will we rely on "The Wiki" (a suspected Automaton data-mining operation). All assets are now hosted locally on Super Earth approved servers.
