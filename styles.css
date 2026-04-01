@@ -6,7 +6,8 @@
     --hd-yellow: #FFE710;
     --hd-black: #0B0C0D;
     --hd-blue: #41639C;
-    --hd-gray: #2A2C2E;
+    /* OG HD Gray: 2A2C2E */
+    --hd-gray: #45494E; 
 }
 
 body, html {
