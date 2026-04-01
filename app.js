@@ -199,8 +199,19 @@ function getRandomItem(array) {
 }
 
 function getDistinctItems(array, count) {
-    const shuffled = [...array].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
+    if (!array || array.length === 0) return [];
+    const result = [...array];
+    const n = result.length;
+    const k = Math.min(count, n);
+
+    for (let i = 0; i < k; i++) {
+        const j = i + Math.floor(Math.random() * (n - i));
+        const temp = result[i];
+        result[i] = result[j];
+        result[j] = temp;
+    }
+
+    return result.slice(0, k);
 }
 
 function generateLoadout() {
