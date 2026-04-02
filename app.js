@@ -264,33 +264,69 @@ function renderLoadout() {
     for (const [slotKey, itemName] of Object.entries(currentLoadout)) {
         if (itemName) {
             if (['primaryWeapon', 'secondaryWeapon', 'grenade'].includes(slotKey)) {
-                topRow.innerHTML += createCardHTML(itemName, slotKey);
+                topRow.appendChild(createCardElement(itemName, slotKey));
             } else {
-                bottomRow.innerHTML += createCardHTML(itemName, slotKey);
+                bottomRow.appendChild(createCardElement(itemName, slotKey));
             }
         }
     }
 }
 
-function createCardHTML(itemName, slotKey) {
-    // Basic escaping to prevent breaking HTML attributes
-    const safeItemName = itemName.replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+function handleImageError(imgElement, itemName) {
+    let mapImg = weaponImageMap[itemName];
+    if (mapImg && !imgElement.src.includes('weapon-icons')) {
+        imgElement.onerror = function() {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'gear-image-placeholder';
+            placeholder.textContent = itemName;
+            imgElement.replaceWith(placeholder);
+        };
+        imgElement.src = './weapon-icons/' + mapImg;
+    } else {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'gear-image-placeholder';
+        placeholder.textContent = itemName;
+        imgElement.replaceWith(placeholder);
+    }
+}
+
+function createCardElement(itemName, slotKey) {
     const imgSrc = getImageUrl(itemName, slotKey);
 
-    return `
-        <div class="gear-card" data-slot="${slotKey}">
-            <img src="${imgSrc}" alt="${safeItemName}" onerror="let mapImg = weaponImageMap['${safeItemName}']; if (mapImg && !this.src.includes('weapon-icons')) { this.onerror = function() { this.outerHTML='<div class=&quot;gear-image-placeholder&quot;>${safeItemName}</div>'; }; this.src='./weapon-icons/' + mapImg; } else { this.outerHTML='<div class=&quot;gear-image-placeholder&quot;>${safeItemName}</div>'; }" style="max-width:100%; height:120px; object-fit:contain;">
-            <h3>${safeItemName}</h3>
-            <button class="exclude-btn" data-slot="${slotKey}" data-item="${safeItemName}">I don't have this</button>
-        </div>
-    `;
+    const card = document.createElement('div');
+    card.className = 'gear-card';
+    card.setAttribute('data-slot', slotKey);
+
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = itemName;
+    img.style.maxWidth = '100%';
+    img.style.height = '120px';
+    img.style.objectFit = 'contain';
+    img.onerror = function() {
+        handleImageError(this, itemName);
+    };
+
+    const h3 = document.createElement('h3');
+    h3.textContent = itemName;
+
+    const button = document.createElement('button');
+    button.className = 'exclude-btn';
+    button.setAttribute('data-slot', slotKey);
+    button.setAttribute('data-item', itemName);
+    button.textContent = "I don't have this";
+
+    card.appendChild(img);
+    card.appendChild(h3);
+    card.appendChild(button);
+
+    return card;
 }
 
 function handleExclude(event) {
     if (event.target.classList.contains('exclude-btn')) {
         const slotKey = event.target.getAttribute('data-slot');
-        const itemNameRaw = event.target.getAttribute('data-item');
-        const itemName = itemNameRaw.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+        const itemName = event.target.getAttribute('data-item');
 
         const category = slotCategoryMap[slotKey];
 
