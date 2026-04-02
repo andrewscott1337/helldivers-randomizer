@@ -180,11 +180,6 @@ function savePool() {
     }
 }
 
-function resetPool() {
-    activeGear = JSON.parse(JSON.stringify(allGear));
-    savePool();
-}
-
 function resetPoolAndClear() {
     localStorage.removeItem('activeGear');
     activeGear = JSON.parse(JSON.stringify(allGear));
