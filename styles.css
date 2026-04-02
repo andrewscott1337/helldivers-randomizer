@@ -127,6 +127,13 @@ button {
     color: var(--hd-black);
 }
 
+#loadout-display {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-evenly;
+}
+
 .loadout-row {
     flex: 1;
     display: flex;
