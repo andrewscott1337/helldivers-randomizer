@@ -2,7 +2,7 @@
 
 **ATTENTION HELLDIVER:**
 
-Stop "thinking" and start shooting Helldiver! 
+Stop thinking and start shooting Helldiver! 
 
 Super Earth Command has authorized the use of this **Tactical Loadout Randomizer**. It removes the burden of choice, allowing you to focus 100% of your freedom loving brain on squeezing off rounds.
 
@@ -10,7 +10,7 @@ Super Earth Command has authorized the use of this **Tactical Loadout Randomizer
 No longer will we rely on "The Wiki" (a suspected Automaton data-mining operation). All assets are now hosted locally on Super Earth approved servers.
 
 ### 🛠 FEATURES 
-- **The "I Don't Have This" Button:** For the lazy communists and anarchists those who haven't yet earned enough Requisition Slips. 
+- **The "I Don't Have This" Button:** For the lazy communists, anarchists and those who haven't earned enough Requisition Slips. 
 
 ## 📂 FILE STRUCTURE (TOP SECRET)
 - `index.html`: The UI of Freedom.
@@ -20,6 +20,6 @@ No longer will we rely on "The Wiki" (a suspected Automaton data-mining operatio
 - `/weapon-icons/`: The 192MB payload of localized weapon imagery.
 
 ## 🛠 MAINTENANCE
-Managed by Google Jules, powered by the righteqousness of tech oligopoly 
+Managed and created by Google Jules, powered by the righteousness of tech oligopoly 
 
 **FOR SUPER EARTH!**
