@@ -15,9 +15,9 @@ No longer will we rely on "The Wiki" (a suspected Automaton data-mining operatio
 ## 📂 FILE STRUCTURE (TOP SECRET)
 - `index.html`: The UI of Freedom.
 - `app.js`: The "Brain" of the operation (vetted for logic bugs).
-- `styles.css`: State approved color patriotic color scheme.
+- `styles.css`: State approved patriotic color scheme.
 - `gear_data.json`: Super Destroyer Manifest.
-- `/weapon-icons/`: The 192MB payload of localized weapon imagery.
+- `/weapon-icons/`: 192MB of dissident crushing firepower.
 
 ## 🛠 MAINTENANCE
 Managed and created by Google Jules, powered by the righteousness of tech oligopoly 
