@@ -258,18 +258,22 @@ function getImageUrl(itemName, slotKey) {
 function renderLoadout() {
     const topRow = document.getElementById('top-row');
     const bottomRow = document.getElementById('bottom-row');
-    topRow.innerHTML = '';
-    bottomRow.innerHTML = '';
+
+    let topRowHTML = '';
+    let bottomRowHTML = '';
 
     for (const [slotKey, itemName] of Object.entries(currentLoadout)) {
         if (itemName) {
             if (['primaryWeapon', 'secondaryWeapon', 'grenade'].includes(slotKey)) {
-                topRow.innerHTML += createCardHTML(itemName, slotKey);
+                topRowHTML += createCardHTML(itemName, slotKey);
             } else {
-                bottomRow.innerHTML += createCardHTML(itemName, slotKey);
+                bottomRowHTML += createCardHTML(itemName, slotKey);
             }
         }
     }
+
+    topRow.innerHTML = topRowHTML;
+    bottomRow.innerHTML = bottomRowHTML;
 }
 
 function createCardHTML(itemName, slotKey) {
