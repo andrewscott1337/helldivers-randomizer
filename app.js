@@ -167,10 +167,10 @@ function initPool() {
             activeGear = JSON.parse(savedGear);
         } catch (e) {
             console.error('Error parsing saved gear, resetting:', e);
-            activeGear = JSON.parse(JSON.stringify(allGear));
+            activeGear = structuredClone(allGear);
         }
     } else {
-        activeGear = JSON.parse(JSON.stringify(allGear));
+        activeGear = structuredClone(allGear);
     }
 }
 
