@@ -241,8 +241,6 @@ function getImageUrl(itemName, slotKey) {
         cleanName = cleanName.replace("120mm", "120MM").replace("380mm", "380MM");
 
         // Strip weapon prefix codes
-        // Matches typical Helldivers prefix format like "M-105 ", "LAS-99 ", "AC-8 ", "A/MG-43 ", etc.
-        // It's safer to use a regex that matches uppercase letters, slashes, numbers, dashes, followed by a space at the start.
         cleanName = cleanName.replace(/^[A-Z0-9/-]+\s+/, '');
 
         return `./all-icons/${encodeURI(cleanName)}.svg`;
@@ -259,54 +257,76 @@ function renderLoadout() {
     const topRow = document.getElementById('top-row');
     const bottomRow = document.getElementById('bottom-row');
 
-    let topRowHTML = '';
-    let bottomRowHTML = '';
+    // Clear the rows out before we append the new ones in!
+    topRow.innerHTML = '';
+    bottomRow.innerHTML = '';
 
     for (const [slotKey, itemName] of Object.entries(currentLoadout)) {
         if (itemName) {
             if (['primaryWeapon', 'secondaryWeapon', 'grenade'].includes(slotKey)) {
-                topRowHTML += createCardHTML(itemName, slotKey);
+                topRow.appendChild(createCardElement(itemName, slotKey));
             } else {
-                bottomRowHTML += createCardHTML(itemName, slotKey);
+                bottomRow.appendChild(createCardElement(itemName, slotKey));
             }
         }
     }
-
-    topRow.innerHTML = topRowHTML;
-    bottomRow.innerHTML = bottomRowHTML;
 }
 
 function handleImageError(imgElement, itemName) {
     let mapImg = weaponImageMap[itemName];
     if (mapImg && !imgElement.src.includes('weapon-icons')) {
         imgElement.onerror = function() {
-            this.outerHTML = `<div class="gear-image-placeholder">${itemName}</div>`;
+            const placeholder = document.createElement('div');
+            placeholder.className = 'gear-image-placeholder';
+            placeholder.textContent = itemName;
+            imgElement.replaceWith(placeholder);
         };
         imgElement.src = './weapon-icons/' + mapImg;
     } else {
-        imgElement.outerHTML = `<div class="gear-image-placeholder">${itemName}</div>`;
+        const placeholder = document.createElement('div');
+        placeholder.className = 'gear-image-placeholder';
+        placeholder.textContent = itemName;
+        imgElement.replaceWith(placeholder);
     }
 }
 
-function createCardHTML(itemName, slotKey) {
-    // Basic escaping to prevent breaking HTML attributes
-    const safeItemName = itemName.replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+function createCardElement(itemName, slotKey) {
     const imgSrc = getImageUrl(itemName, slotKey);
 
-    return `
-        <div class="gear-card" data-slot="${slotKey}">
-            <img src="${imgSrc}" alt="${safeItemName}" onerror="handleImageError(this, '${safeItemName}')" style="max-width:100%; height:120px; object-fit:contain;">
-            <h3>${safeItemName}</h3>
-            <button class="exclude-btn" data-slot="${slotKey}" data-item="${safeItemName}">I don't have this</button>
-        </div>
-    `;
+    const card = document.createElement('div');
+    card.className = 'gear-card';
+    card.setAttribute('data-slot', slotKey);
+
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = itemName;
+    img.style.maxWidth = '100%';
+    img.style.height = '120px';
+    img.style.objectFit = 'contain';
+    img.onerror = function() {
+        handleImageError(this, itemName);
+    };
+
+    const h3 = document.createElement('h3');
+    h3.textContent = itemName;
+
+    const button = document.createElement('button');
+    button.className = 'exclude-btn';
+    button.setAttribute('data-slot', slotKey);
+    button.setAttribute('data-item', itemName);
+    button.textContent = "I don't have this";
+
+    card.appendChild(img);
+    card.appendChild(h3);
+    card.appendChild(button);
+
+    return card;
 }
 
 function handleExclude(event) {
     if (event.target.classList.contains('exclude-btn')) {
         const slotKey = event.target.getAttribute('data-slot');
-        const itemNameRaw = event.target.getAttribute('data-item');
-        const itemName = itemNameRaw.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+        const itemName = event.target.getAttribute('data-item');
 
         const category = slotCategoryMap[slotKey];
 
