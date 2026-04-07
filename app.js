@@ -276,6 +276,18 @@ function renderLoadout() {
     bottomRow.innerHTML = bottomRowHTML;
 }
 
+function handleImageError(imgElement, itemName) {
+    let mapImg = weaponImageMap[itemName];
+    if (mapImg && !imgElement.src.includes('weapon-icons')) {
+        imgElement.onerror = function() {
+            this.outerHTML = `<div class="gear-image-placeholder">${itemName}</div>`;
+        };
+        imgElement.src = './weapon-icons/' + mapImg;
+    } else {
+        imgElement.outerHTML = `<div class="gear-image-placeholder">${itemName}</div>`;
+    }
+}
+
 function createCardHTML(itemName, slotKey) {
     // Basic escaping to prevent breaking HTML attributes
     const safeItemName = itemName.replace(/'/g, "&#39;").replace(/"/g, '&quot;');
@@ -283,7 +295,7 @@ function createCardHTML(itemName, slotKey) {
 
     return `
         <div class="gear-card" data-slot="${slotKey}">
-            <img src="${imgSrc}" alt="${safeItemName}" onerror="let mapImg = weaponImageMap['${safeItemName}']; if (mapImg && !this.src.includes('weapon-icons')) { this.onerror = function() { this.outerHTML='<div class=&quot;gear-image-placeholder&quot;>${safeItemName}</div>'; }; this.src='./weapon-icons/' + mapImg; } else { this.outerHTML='<div class=&quot;gear-image-placeholder&quot;>${safeItemName}</div>'; }" style="max-width:100%; height:120px; object-fit:contain;">
+            <img src="${imgSrc}" alt="${safeItemName}" onerror="handleImageError(this, '${safeItemName}')" style="max-width:100%; height:120px; object-fit:contain;">
             <h3>${safeItemName}</h3>
             <button class="exclude-btn" data-slot="${slotKey}" data-item="${safeItemName}">I don't have this</button>
         </div>
