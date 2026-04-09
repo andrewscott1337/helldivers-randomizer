@@ -16,18 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
         with:
           fetch-depth: 0
 
       - name: Compress Images
-        uses: calibreapp/image-actions@main
+        uses: calibreapp/image-actions@03c976c29803442fc4040a9de5509669e7759b81  # main
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           compressOnly: true
 
       - name: Commit Optimized Images
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403  # v5
         with:
           commit_message: "chore(images): auto compress weapon icons"
           file_pattern: "weapon-icons/**/*.png"
