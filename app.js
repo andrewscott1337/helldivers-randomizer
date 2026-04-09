@@ -235,13 +235,10 @@ function getImageUrl(itemName, slotKey) {
     const isStratagem = slotKey && slotKey.startsWith('stratagem');
 
     if (isStratagem) {
-        let cleanName = itemName;
-
-        // Fix case sensitivity
-        cleanName = cleanName.replace("120mm", "120MM").replace("380mm", "380MM");
+        let cleanName = itemName.replace(/120mm/i, "120MM").replace(/380mm/i, "380MM");
 
         // Strip weapon prefix codes
-        cleanName = cleanName.replace(/^[A-Z0-9/-]+\s+/, '');
+        cleanName = cleanName.replace(/^[A-Z0-9\/-]+\s+/, '');
 
         return `./all-icons/${encodeURI(cleanName)}.svg`;
     }
