@@ -230,9 +230,6 @@ function generateLoadout() {
     renderLoadout();
 }
 
-const STRATAGEM_PREFIX_REGEX = /^[A-Z0-9\/-]+\s+/;
-const SPACE_REGEX = / /g;
-
 function getImageUrl(itemName, slotKey) {
     if (!itemName) return '';
     const isStratagem = slotKey && slotKey.startsWith('stratagem');
@@ -244,7 +241,7 @@ function getImageUrl(itemName, slotKey) {
         cleanName = cleanName.replace("120mm", "120MM").replace("380mm", "380MM");
 
         // Strip weapon prefix codes
-        cleanName = cleanName.replace(STRATAGEM_PREFIX_REGEX, '');
+        cleanName = cleanName.replace(/^[A-Z0-9/-]+\s+/, '');
 
         return `./all-icons/${encodeURI(cleanName)}.svg`;
     }
@@ -253,7 +250,7 @@ function getImageUrl(itemName, slotKey) {
         return `./weapon-icons/${weaponImageMap[itemName]}`;
     }
 
-    return 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(SPACE_REGEX, '_')) + '_Icon.png';
+    return 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(/ /g, '_')) + '_Icon.png';
 }
 
 function renderLoadout() {
