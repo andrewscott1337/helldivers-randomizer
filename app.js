@@ -146,6 +146,8 @@ const slotCategoryMap = {
     stratagem4: 'stratagems'
 };
 
+const WEAPON_PREFIX_REGEX = /^[A-Z0-9\/-]+\s+/;
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch('gear_data.json')
         .then(response => response.json())
@@ -241,7 +243,7 @@ function getImageUrl(itemName, slotKey) {
         cleanName = cleanName.replace("120mm", "120MM").replace("380mm", "380MM");
 
         // Strip weapon prefix codes
-        cleanName = cleanName.replace(/^[A-Z0-9/-]+\s+/, '');
+        cleanName = cleanName.replace(WEAPON_PREFIX_REGEX, '');
 
         return `./all-icons/${encodeURI(cleanName)}.svg`;
     }
