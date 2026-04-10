@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
 
       - name: Compress Images
-        uses: calibreapp/image-actions@main
+        uses: calibreapp/image-actions@03c976c29803442fc4040a9de5509669e7759b81
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           compressOnly: true
