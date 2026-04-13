@@ -227,11 +227,17 @@ function generateLoadout() {
     renderLoadout();
 }
 
+const stratagemImageCache = {};
+
 function getImageUrl(itemName, slotKey) {
     if (!itemName) return '';
     const isStratagem = slotKey && slotKey.startsWith('stratagem');
 
     if (isStratagem) {
+        if (stratagemImageCache[itemName]) {
+            return stratagemImageCache[itemName];
+        }
+
         let cleanName = itemName;
 
         // Fix case sensitivity
@@ -240,7 +246,9 @@ function getImageUrl(itemName, slotKey) {
         // Strip weapon prefix codes
         cleanName = cleanName.replace(WEAPON_PREFIX_REGEX, '');
 
-        return `./all-icons/${encodeURI(cleanName)}.svg`;
+        const resultUrl = `./all-icons/${encodeURI(cleanName)}.svg`;
+        stratagemImageCache[itemName] = resultUrl;
+        return resultUrl;
     }
 
     if (weaponImageMap[itemName]) {
