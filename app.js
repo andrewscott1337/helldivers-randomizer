@@ -147,6 +147,7 @@ const slotCategoryMap = {
 };
 
 const WEAPON_PREFIX_REGEX = /^[A-Z0-9\/-]+\s+/;
+const TOP_ROW_SLOTS = new Set(['primaryWeapon', 'secondaryWeapon', 'grenade']);
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('gear_data.json')
@@ -268,7 +269,7 @@ function renderLoadout() {
 
     for (const [slotKey, itemName] of Object.entries(currentLoadout)) {
         if (itemName) {
-            if (['primaryWeapon', 'secondaryWeapon', 'grenade'].includes(slotKey)) {
+            if (TOP_ROW_SLOTS.has(slotKey)) {
                 topRow.appendChild(createCardElement(itemName, slotKey));
             } else {
                 bottomRow.appendChild(createCardElement(itemName, slotKey));
