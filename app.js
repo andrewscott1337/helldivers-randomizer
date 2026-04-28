@@ -204,9 +204,7 @@ function getDistinctItems(array, count) {
 
     for (let i = 0; i < k; i++) {
         const j = i + Math.floor(Math.random() * (n - i));
-        const temp = result[i];
-        result[i] = result[j];
-        result[j] = temp;
+        [result[i], result[j]] = [result[j], result[i]];
     }
 
     return result.slice(0, k);
