@@ -126,7 +126,7 @@ const weaponImageMap = {
 let allGear = null;
 let activeGear = null;
 
-let currentLoadout = {
+const currentLoadout = {
     primaryWeapon: null,
     secondaryWeapon: null,
     grenade: null,
