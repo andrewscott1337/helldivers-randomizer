@@ -40,6 +40,7 @@
     "A/MG-43 Machine Gun Sentry", "A/G-16 Gatling Sentry", "A/M-12 Mortar Sentry", "A/AC-8 Autocannon Sentry", 
     "A/MLS-4X Rocket Sentry", "A/M-23 EMS Mortar Sentry", "A/ARC-3 Tesla Tower", "A/GM-17 Gas Mortar Sentry", 
     "MD-6 Anti-Personnel Minefield", "MD-I4 Incendiary Mines", "MD-17 Anti-Tank Mines", "FX-12 Shield Generator Relay", 
-    "E/MG-101 HMG Emplacement", "E/AT-12 Anti-Tank Emplacement", "E/GL-21 Grenadier Battlement", "MS-11 Solo Silo"
+    "E/MG-101 HMG Emplacement", "E/AT-12 Anti-Tank Emplacement", "E/GL-21 Grenadier Battlement", "MS-11 Solo Silo",
+    "Lumberer Exosuit", "Breakthrough Exosuit", "Bullet Storm"
   ]
 }
