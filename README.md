@@ -20,6 +20,8 @@ No longer will we rely on "The Wiki" (a suspected Automaton data-mining operatio
 - `/weapon-icons/`: 192MB of dissident crushing firepower.
 
 ## 🛠 MAINTENANCE
-Managed and created by Google Jules, powered by the righteousness of tech oligopoly 
+Managed and created by Google Jules, powered by the righteousness of tech oligopoly
+
+Strategem tactical icons sourced from: https://github.com/nvigneux/Helldivers-2-Stratagems-icons-svg
 
 **FOR SUPER EARTH!**
