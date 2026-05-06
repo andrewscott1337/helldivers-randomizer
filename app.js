@@ -248,7 +248,7 @@ function getImageUrl(itemName, slotKey) {
         // Strip weapon prefix codes
         cleanName = cleanName.replace(WEAPON_PREFIX_REGEX, '');
 
-        const resultUrl = `./all-icons/${encodeURI(cleanName)}.svg`;
+        const resultUrl = `./all-icons/${encodeURIComponent(cleanName)}.svg`;
         stratagemImageCache[itemName] = resultUrl;
         return resultUrl;
     }
