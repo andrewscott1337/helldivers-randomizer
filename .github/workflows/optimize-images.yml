@@ -1,9 +1,10 @@
+---
 name: Optimize Images
 
-on:
+"on":
   push:
     branches:
-      - main
+      - 'main'
     paths:
       - 'weapon-icons/**/*.png'
 

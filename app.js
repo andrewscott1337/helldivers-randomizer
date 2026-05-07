@@ -268,15 +268,21 @@ function renderLoadout() {
     topRow.innerHTML = '';
     bottomRow.innerHTML = '';
 
+    const topFragment = document.createDocumentFragment();
+    const bottomFragment = document.createDocumentFragment();
+
     for (const [slotKey, itemName] of Object.entries(currentLoadout)) {
         if (itemName) {
             if (TOP_ROW_SLOTS.has(slotKey)) {
-                topRow.appendChild(createCardElement(itemName, slotKey));
+                topFragment.appendChild(createCardElement(itemName, slotKey));
             } else {
-                bottomRow.appendChild(createCardElement(itemName, slotKey));
+                bottomFragment.appendChild(createCardElement(itemName, slotKey));
             }
         }
     }
+
+    topRow.appendChild(topFragment);
+    bottomRow.appendChild(bottomFragment);
 }
 
 function replaceWithPlaceholder(imgElement, itemName) {
