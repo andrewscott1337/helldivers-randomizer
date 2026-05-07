@@ -279,21 +279,22 @@ function renderLoadout() {
     }
 }
 
+function replaceWithPlaceholder(imgElement, itemName) {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'gear-image-placeholder';
+    placeholder.textContent = itemName;
+    imgElement.replaceWith(placeholder);
+}
+
 function handleImageError(imgElement, itemName) {
     let mapImg = weaponImageMap[itemName];
     if (mapImg && !imgElement.src.includes('weapon-icons')) {
         imgElement.onerror = function() {
-            const placeholder = document.createElement('div');
-            placeholder.className = 'gear-image-placeholder';
-            placeholder.textContent = itemName;
-            imgElement.replaceWith(placeholder);
+            replaceWithPlaceholder(imgElement, itemName);
         };
         imgElement.src = './weapon-icons/' + mapImg;
     } else {
-        const placeholder = document.createElement('div');
-        placeholder.className = 'gear-image-placeholder';
-        placeholder.textContent = itemName;
-        imgElement.replaceWith(placeholder);
+        replaceWithPlaceholder(imgElement, itemName);
     }
 }
 
