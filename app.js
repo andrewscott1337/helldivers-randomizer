@@ -245,7 +245,7 @@ function getImageUrl(itemName, slotKey) {
         let cleanName = itemName;
 
         // Fix case sensitivity
-        cleanName = cleanName.replace("120mm", "120MM").replace("380mm", "380MM");
+        cleanName = cleanName.replace(/(\d+)mm/gi, '$1MM');
 
         // Strip weapon prefix codes
         cleanName = cleanName.replace(WEAPON_PREFIX_REGEX, '');
