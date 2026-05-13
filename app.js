@@ -229,7 +229,9 @@ function generateLoadout() {
     renderLoadout();
 }
 
+const SPACE_REGEX = / /g;
 const stratagemImageCache = {};
+const fallbackImageCache = {};
 
 function getImageUrl(itemName, slotKey) {
     if (!itemName) return '';
@@ -257,7 +259,13 @@ function getImageUrl(itemName, slotKey) {
         return `./weapon-icons/${weaponImageMap[itemName]}`;
     }
 
-    return 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(/ /g, '_')) + '_Icon.png';
+    if (fallbackImageCache[itemName]) {
+        return fallbackImageCache[itemName];
+    }
+
+    const resultUrl = 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(SPACE_REGEX, '_')) + '_Icon.png';
+    fallbackImageCache[itemName] = resultUrl;
+    return resultUrl;
 }
 
 function renderLoadout() {
