@@ -17,18 +17,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
 
+      - name: Setup ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick webp
+
       - name: Compress Images
-        uses: calibreapp/image-actions@03c976c29803442fc4040a9de5509669e7759b81
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          compressOnly: true
+        run: |
+          mkdir -p weapon-icons-webp
+          for f in weapon-icons/*.png; do
+            filename=$(basename -- "$f")
+            basename="${filename%.*}"
+            convert "$f" -resize 512x512\> -quality 80 "weapon-icons-webp/${basename}.webp"
+          done
 
       - name: Commit Optimized Images
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # v5
         with:
           commit_message: "chore(images): auto compress weapon icons"
-          file_pattern: "weapon-icons/**/*.png"
+          file_pattern: "weapon-icons-webp/**/*.webp"
