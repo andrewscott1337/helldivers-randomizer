@@ -31,7 +31,7 @@ const weaponImageMap = {
     "M90A Shotgun": "imgi_38_M90A_Shotgun_Primary_Render.png",
     "SMG-203 Gallant": "SMG-203_Gallant_Primary_Render.png",
     "SG-225 Breaker": "imgi_39_SG-225_Breaker_Primary_Render.png",
-    "SG-225SP Breaker Spray&Pray": "imgi_40_SG-225SP_Breaker_Spray%26Pray_Primary_Render.png",
+    "SG-225SP Breaker Spray&Pray": "imgi_40_SG-225SP_Breaker_Spray&Pray_Primary_Render.png",
     "SG-225IE Breaker Incendiary": "imgi_41_SG-225IE_Breaker_Incendiary_Primary_Render.png",
     "CB-9 Exploding Crossbow": "imgi_43_CB-9_Exploding_Crossbow_Primary_Render.png",
     "R-36 Eruptor": "imgi_44_R-36_Eruptor_Primary_Render.png",
@@ -229,9 +229,7 @@ function generateLoadout() {
     renderLoadout();
 }
 
-const SPACE_REGEX = / /g;
 const stratagemImageCache = {};
-const fallbackImageCache = {};
 
 function getImageUrl(itemName, slotKey) {
     if (!itemName) return '';
@@ -256,16 +254,11 @@ function getImageUrl(itemName, slotKey) {
     }
 
     if (weaponImageMap[itemName]) {
-        return `./weapon-icons/${weaponImageMap[itemName]}`;
+        // Encode the mapped filename to handle special characters like '&'
+        return `./weapon-icons/${encodeURIComponent(weaponImageMap[itemName])}`;
     }
 
-    if (fallbackImageCache[itemName]) {
-        return fallbackImageCache[itemName];
-    }
-
-    const resultUrl = 'https://helldivers.wiki.gg/images/' + encodeURIComponent(itemName.replace(SPACE_REGEX, '_')) + '_Icon.png';
-    fallbackImageCache[itemName] = resultUrl;
-    return resultUrl;
+    return '';
 }
 
 function renderLoadout() {
@@ -306,7 +299,7 @@ function handleImageError(imgElement, itemName) {
         imgElement.onerror = function() {
             replaceWithPlaceholder(imgElement, itemName);
         };
-        imgElement.src = './weapon-icons/' + mapImg;
+        imgElement.src = './weapon-icons/' + encodeURIComponent(mapImg);
     } else {
         replaceWithPlaceholder(imgElement, itemName);
     }
