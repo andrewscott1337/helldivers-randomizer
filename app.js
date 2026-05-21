@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             allGear = data;
             initPool();
+            preloadWeaponImages();
         })
         .catch(error => console.error('Error fetching gear data:', error));
 
@@ -163,6 +164,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('reset-btn').addEventListener('click', resetPoolAndClear);
     document.addEventListener('click', handleExclude);
 });
+
+function preloadWeaponImages() {
+    if (typeof Image !== 'undefined') {
+        for (const imageName of Object.values(weaponImageMap)) {
+            const img = new Image();
+            img.src = `./weapon-icons-webp/${imageName}`;
+        }
+    }
+}
 
 function initPool() {
     const savedGear = localStorage.getItem('activeGear');
