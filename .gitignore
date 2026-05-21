@@ -1,1 +1,6 @@
+# Dependency directories
 node_modules/
+# Python caches
+__pycache__/
+# Ignore package-lock to avoid diff noise in commits
+package-lock.json
