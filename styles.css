@@ -127,6 +127,48 @@ button {
     color: var(--hd-black);
 }
 
+.special-order-controls {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.special-order-label {
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--hd-blue);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.special-order-label input[type="checkbox"] {
+    accent-color: var(--hd-yellow);
+    width: 1rem;
+    height: 1rem;
+}
+
+.special-order-banner {
+    background: repeating-linear-gradient(
+        45deg,
+        #ff3333,
+        #ff3333 10px,
+        #2A2C2E 10px,
+        #2A2C2E 20px
+    );
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    border: 2px solid #ff3333;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px black;
+}
+
+.hidden {
+    display: none !important;
+}
+
 #loadout-display {
     display: flex;
     flex-direction: column;

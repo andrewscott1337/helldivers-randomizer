@@ -128,6 +128,8 @@ let allGear = null;
 let activeGear = null;
 
 const currentLoadout = {
+    armorClass: null,
+    armorPassive: null,
     primaryWeapon: null,
     secondaryWeapon: null,
     grenade: null,
@@ -138,6 +140,8 @@ const currentLoadout = {
 };
 
 const slotCategoryMap = {
+    armorClass: 'armorClasses',
+    armorPassive: 'armorPassives',
     primaryWeapon: 'primaryWeapons',
     secondaryWeapon: 'secondaryWeapons',
     grenade: 'grenades',
@@ -148,7 +152,7 @@ const slotCategoryMap = {
 };
 
 const WEAPON_PREFIX_REGEX = /^[A-Z0-9\/-]+\s+/;
-const TOP_ROW_SLOTS = new Set(['primaryWeapon', 'secondaryWeapon', 'grenade']);
+const TOP_ROW_SLOTS = new Set(['armorClass', 'armorPassive', 'primaryWeapon', 'secondaryWeapon', 'grenade']);
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('gear_data.json')
@@ -226,6 +230,23 @@ function getDistinctItems(array, count) {
 function generateLoadout() {
     if (!activeGear) return;
 
+    const specialOrderToggle = document.getElementById('special-order-toggle');
+    const specialOrderDisplay = document.getElementById('special-order-display');
+
+    if (specialOrderToggle && specialOrderToggle.checked) {
+        const order = getRandomItem(activeGear.specialOrders);
+        if (specialOrderDisplay) {
+            specialOrderDisplay.textContent = order;
+            specialOrderDisplay.classList.remove('hidden');
+        }
+    } else {
+        if (specialOrderDisplay) {
+            specialOrderDisplay.classList.add('hidden');
+        }
+    }
+
+    currentLoadout.armorClass = getRandomItem(activeGear.armorClasses);
+    currentLoadout.armorPassive = getRandomItem(activeGear.armorPassives);
     currentLoadout.primaryWeapon = getRandomItem(activeGear.primaryWeapons);
     currentLoadout.secondaryWeapon = getRandomItem(activeGear.secondaryWeapons);
     currentLoadout.grenade = getRandomItem(activeGear.grenades);
@@ -265,6 +286,10 @@ function getImageUrl(itemName, slotKey) {
 
     if (weaponImageMap[itemName]) {
         return `./weapon-icons-webp/${weaponImageMap[itemName]}`;
+    }
+
+    if (slotKey === 'armorClass' || slotKey === 'armorPassive') {
+        return './all-icons/Super_Earth.svg';
     }
 
     return '';
