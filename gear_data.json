@@ -42,21 +42,5 @@
     "MD-6 Anti-Personnel Minefield", "MD-I4 Incendiary Mines", "MD-17 Anti-Tank Mines", "FX-12 Shield Generator Relay", 
     "E/MG-101 HMG Emplacement", "E/AT-12 Anti-Tank Emplacement", "E/GL-21 Grenadier Battlement", "MS-11 Solo Silo",
     "Lumberer Exosuit", "Breakthrough Exosuit", "Bullet Storm"
-  ],
-  "armorClasses": [
-    "Light Armor", "Medium Armor", "Heavy Armor"
-  ],
-  "armorPassives": [
-    "Extra Padding", "Med-Kit", "Engineering Kit", "Democracy Protects", "Servo-Assisted",
-    "Scout", "Fortified", "Electrical Conduit", "Peak Physique", "Inflammable",
-    "Advanced Filtration", "Acclimated", "Truth Enforcer", "Siege-Ready"
-  ],
-  "specialOrders": [
-    "Oops, All Orbitals: Use only Orbital Stratagems",
-    "Pacifist Run: Use only Defensive / Support Stratagems",
-    "Oops, All Turrets: Sentry City, Population: You",
-    "Full Pyromaniac: Fire-based weapons and stratagems highly encouraged",
-    "Standard Issue Only: Starter weapons only, prove your worth",
-    "Secondary Weapons Only: Primary weapons are for cowards"
   ]
 }
