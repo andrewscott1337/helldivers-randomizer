@@ -22,12 +22,29 @@
 
         <div class="controls">
             <button id="generate-btn" class="primary-btn">INITIALIZE DROP</button>
+            <button id="war-status-btn" class="secondary-btn">WAR STATUS</button>
             <button id="reset-btn" class="secondary-btn">RESET ARMORY</button>
         </div>
 
         <div id="loadout-display">
             <div class="loadout-row" id="top-row"></div>
             <div class="loadout-row" id="bottom-row"></div>
+        </div>
+
+        <div id="war-status-display" style="display: none;">
+            <div id="major-order-container" class="war-panel">
+                <h2>MAJOR ORDER</h2>
+                <div id="major-order-content">
+                    <p>Fetching Super Earth Command Directives...</p>
+                </div>
+            </div>
+
+            <div id="campaigns-container" class="war-panel">
+                <h2>ACTIVE CAMPAIGNS</h2>
+                <div id="campaigns-grid">
+                    <!-- Campaigns injected via JS -->
+                </div>
+            </div>
         </div>
     </div>
     
