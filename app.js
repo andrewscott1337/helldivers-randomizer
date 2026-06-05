@@ -162,8 +162,107 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('generate-btn').addEventListener('click', generateLoadout);
     document.getElementById('reset-btn').addEventListener('click', resetPoolAndClear);
+    document.getElementById('war-status-btn').addEventListener('click', toggleWarStatus);
     document.addEventListener('click', handleExclude);
 });
+
+let isWarStatusView = false;
+let hasFetchedWarStatus = false;
+
+function toggleWarStatus() {
+    const loadoutDisplay = document.getElementById('loadout-display');
+    const warStatusDisplay = document.getElementById('war-status-display');
+    const warStatusBtn = document.getElementById('war-status-btn');
+
+    isWarStatusView = !isWarStatusView;
+
+    if (isWarStatusView) {
+        loadoutDisplay.style.display = 'none';
+        warStatusDisplay.style.display = 'flex';
+        warStatusBtn.textContent = 'BACK TO ARMORY';
+        if (!hasFetchedWarStatus) {
+            fetchWarStatus();
+        }
+    } else {
+        warStatusDisplay.style.display = 'none';
+        loadoutDisplay.style.display = 'flex';
+        warStatusBtn.textContent = 'WAR STATUS';
+    }
+}
+
+async function fetchWarStatus() {
+    const headers = {
+        'X-Super-Client': 'super-earth-loadout-generator',
+        'X-Super-Contact': 'anonymous'
+    };
+
+    try {
+        // Fetch Major Order
+        const assignmentsRes = await fetch('https://api.helldivers2.dev/api/v1/assignments', { headers });
+        const assignments = await assignmentsRes.json();
+
+        const moContent = document.getElementById('major-order-content');
+        if (assignments && assignments.length > 0) {
+            const mo = assignments[0];
+            moContent.innerHTML = `
+                <div class="mo-title">${mo.title || 'MAJOR ORDER'}</div>
+                <div class="mo-briefing">${mo.briefing || 'No briefing available.'}</div>
+            `;
+        } else {
+            moContent.innerHTML = `<div class="mo-briefing">No active Major Order from Super Earth Command.</div>`;
+        }
+
+        // Fetch Campaigns
+        const campaignsRes = await fetch('https://api.helldivers2.dev/api/v1/campaigns', { headers });
+        const campaigns = await campaignsRes.json();
+
+        const grid = document.getElementById('campaigns-grid');
+        grid.innerHTML = ''; // Clear loading state
+
+        if (campaigns && campaigns.length > 0) {
+            const fragment = document.createDocumentFragment();
+            campaigns.forEach(campaign => {
+                const planet = campaign.planet;
+                const maxHealth = planet.maxHealth || 1000000;
+                const currentHealth = planet.health || 0;
+                const isDefending = planet.event !== null;
+
+                let progressPercent = 0;
+                if (isDefending && planet.event) {
+                    progressPercent = (planet.event.health / planet.event.maxHealth) * 100;
+                } else {
+                    progressPercent = 100 - ((currentHealth / maxHealth) * 100);
+                }
+
+                const card = document.createElement('div');
+                card.className = 'campaign-card';
+
+                card.innerHTML = `
+                    <h3 class="planet-name">${planet.name}</h3>
+                    <p class="planet-sector">${planet.sector || 'Unknown Sector'}</p>
+                    <div class="faction-info">
+                        <span>Defending: ${isDefending ? 'Super Earth' : (planet.currentOwner || 'Unknown')}</span>
+                        <span>Attacking: ${isDefending ? (planet.event.faction || 'Unknown') : 'Super Earth'}</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: ${progressPercent.toFixed(2)}%"></div>
+                        <div class="progress-text">${progressPercent.toFixed(2)}% ${isDefending ? 'Defended' : 'Liberated'}</div>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+            grid.appendChild(fragment);
+        } else {
+            grid.innerHTML = '<p>No active campaigns at this time.</p>';
+        }
+
+        hasFetchedWarStatus = true;
+    } catch (error) {
+        console.error('Error fetching war status:', error);
+        document.getElementById('major-order-content').innerHTML = '<p>Error establishing communication with Super Earth Command.</p>';
+        document.getElementById('campaigns-grid').innerHTML = '<p>Failed to retrieve sector status.</p>';
+    }
+}
 
 function preloadWeaponImages() {
     if (typeof Image !== 'undefined') {
