@@ -42,5 +42,11 @@
     "MD-6 Anti-Personnel Minefield", "MD-I4 Incendiary Mines", "MD-17 Anti-Tank Mines", "FX-12 Shield Generator Relay", 
     "E/MG-101 HMG Emplacement", "E/AT-12 Anti-Tank Emplacement", "E/GL-21 Grenadier Battlement", "MS-11 Solo Silo",
     "Lumberer Exosuit", "Breakthrough Exosuit", "Bullet Storm"
+  ],
+  "specialOrders": [
+    "Oops, All Orbitals",
+    "Pacifist Run",
+    "No Support Weapons",
+    "Melee Only"
   ]
 }

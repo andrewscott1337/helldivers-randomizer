@@ -93,6 +93,50 @@ h1 {
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#special-orders-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--hd-yellow);
+    border: 2px solid var(--hd-blue);
+    padding: 0.5rem 1rem;
+    background-color: var(--hd-gray);
+    cursor: pointer;
+}
+
+#special-orders-toggle-container input {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    accent-color: var(--hd-yellow);
+}
+
+.challenge-banner {
+    background-color: var(--hd-yellow);
+    color: var(--hd-black);
+    border: 3px dashed var(--hd-black);
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(255, 231, 16, 0.4);
+}
+
+.challenge-banner img {
+    max-height: 40px;
+    display: none; /* Hidden by default until successfully loaded */
 }
 
 button {

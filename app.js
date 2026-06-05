@@ -201,9 +201,21 @@ function resetPoolAndClear() {
     document.getElementById('bottom-row').innerHTML = '';
 }
 
+function getSecureRandomInt(max) {
+    if (max <= 0) return 0;
+    const array = new Uint32Array(1);
+    const limit = (4294967296 - (4294967296 % max));
+    let randomInt;
+    do {
+        window.crypto.getRandomValues(array);
+        randomInt = array[0];
+    } while (randomInt >= limit);
+    return randomInt % max;
+}
+
 function getRandomItem(array) {
     if (!array || array.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * array.length);
+    const randomIndex = getSecureRandomInt(array.length);
     return array[randomIndex];
 }
 
@@ -214,7 +226,7 @@ function getDistinctItems(array, count) {
     const k = Math.min(count, n);
 
     for (let i = 0; i < k; i++) {
-        const j = i + Math.floor(Math.random() * (n - i));
+        const j = i + getSecureRandomInt(n - i);
         const temp = result[i];
         result[i] = result[j];
         result[j] = temp;
@@ -235,6 +247,36 @@ function generateLoadout() {
     currentLoadout.stratagem2 = stratagems[1] || null;
     currentLoadout.stratagem3 = stratagems[2] || null;
     currentLoadout.stratagem4 = stratagems[3] || null;
+
+    const specialOrderToggle = document.getElementById('special-orders-toggle');
+    const specialOrderBanner = document.getElementById('special-order-banner');
+
+    if (specialOrderToggle && specialOrderToggle.checked && activeGear.specialOrders && activeGear.specialOrders.length > 0) {
+        const challenge = getRandomItem(activeGear.specialOrders);
+        const iconName = challenge.replace(/[\s,]+/g, '_') + '.svg';
+
+        specialOrderBanner.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = `./challenge-icons/${iconName}`;
+        img.alt = challenge;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.onerror = function() {
+            this.style.display = 'none';
+        };
+        img.onload = function() {
+            this.style.display = 'block';
+        };
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = `CAUTION: ${challenge}`;
+
+        specialOrderBanner.appendChild(img);
+        specialOrderBanner.appendChild(textSpan);
+        specialOrderBanner.style.display = 'flex';
+    } else if (specialOrderBanner) {
+        specialOrderBanner.style.display = 'none';
+    }
 
     renderLoadout();
 }
