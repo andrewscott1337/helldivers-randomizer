@@ -294,6 +294,7 @@ function savePool() {
 }
 
 function resetPoolAndClear() {
+    if (isWarStatusView) toggleWarStatus();
     localStorage.removeItem('activeGear');
     activeGear = structuredClone(allGear);
     document.getElementById('top-row').innerHTML = '';
@@ -335,6 +336,7 @@ function getDistinctItems(array, count) {
 }
 
 function generateLoadout() {
+    if (isWarStatusView) toggleWarStatus();
     if (!activeGear) return;
 
     currentLoadout.primaryWeapon = getRandomItem(activeGear.primaryWeapons);
