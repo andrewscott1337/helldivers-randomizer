@@ -197,9 +197,18 @@ async function fetchWarStatus() {
     };
 
     try {
-        // Fetch Major Order
-        const assignmentsRes = await fetch('https://api.helldivers2.dev/api/v1/assignments', { headers });
-        const assignments = await assignmentsRes.json();
+        // Fetch War Status Data Concurrently
+        const [assignmentsRes, campaignsRes, eventsRes, stationsRes] = await Promise.all([
+            fetch('https://api.helldivers2.dev/api/v1/assignments', { headers }).catch(e => null),
+            fetch('https://api.helldivers2.dev/api/v1/campaigns', { headers }).catch(e => null),
+            fetch('https://api.helldivers2.dev/api/v1/planet-events', { headers }).catch(e => null),
+            fetch('https://api.helldivers2.dev/api/v2/space-stations', { headers }).catch(e => null)
+        ]);
+
+        const assignments = assignmentsRes && assignmentsRes.ok ? await assignmentsRes.json() : null;
+        const campaigns = campaignsRes && campaignsRes.ok ? await campaignsRes.json() : null;
+        const events = eventsRes && eventsRes.ok ? await eventsRes.json() : null;
+        const stations = stationsRes && stationsRes.ok ? await stationsRes.json() : null;
 
         const moContent = document.getElementById('major-order-content');
         if (assignments && assignments.length > 0) {
@@ -215,9 +224,38 @@ async function fetchWarStatus() {
             moContent.innerHTML = `<div class="mo-briefing">No active Major Order from Super Earth Command.</div>`;
         }
 
-        // Fetch Campaigns
-        const campaignsRes = await fetch('https://api.helldivers2.dev/api/v1/campaigns', { headers });
-        const campaigns = await campaignsRes.json();
+        window.activePlanetEvents = events || [];
+        window.activeSpaceStations = stations || [];
+
+        // Render Events & Space Stations
+        const eventsContainer = document.getElementById('events-and-stations-container');
+        const eventsContent = document.getElementById('events-stations-content');
+
+        let eventsHtml = '';
+
+        if (window.activeSpaceStations.length > 0) {
+            eventsHtml += '<div class="alert-section"><h3>🛰️ SPACE STATIONS</h3><ul class="alert-list">';
+            window.activeSpaceStations.forEach(station => {
+                eventsHtml += `<li>Orbiting <strong>${station.planet.name}</strong></li>`;
+            });
+            eventsHtml += '</ul></div>';
+        }
+
+        if (window.activePlanetEvents.length > 0) {
+            eventsHtml += '<div class="alert-section"><h3>⚠️ ACTIVE PLANET EVENTS</h3><ul class="alert-list">';
+            window.activePlanetEvents.forEach(ev => {
+                const attackingFaction = ev.event && ev.event.faction ? ev.event.faction : 'Unknown Forces';
+                eventsHtml += `<li><strong>${ev.name}</strong> is under attack by <strong>${attackingFaction}</strong></li>`;
+            });
+            eventsHtml += '</ul></div>';
+        }
+
+        if (eventsHtml !== '') {
+            eventsContent.innerHTML = eventsHtml;
+            eventsContainer.style.display = 'block';
+        } else {
+            eventsContainer.style.display = 'none';
+        }
 
         const grid = document.getElementById('campaigns-grid');
         grid.innerHTML = ''; // Clear loading state
@@ -247,8 +285,20 @@ async function fetchWarStatus() {
                 else if (activeFaction.toLowerCase().includes('automaton')) factionIconFile = 'Automaton_Icon.svg';
                 const factionIconHtml = factionIconFile ? `<img src="./all-icons/Faction_SVGS/${factionIconFile}" class="faction-icon" alt="${activeFaction} Icon">` : '';
 
+                const hasEvent = window.activePlanetEvents.some(ev => ev.index === planet.index);
+                const hasStation = window.activeSpaceStations.some(st => st.planet.index === planet.index);
+
+                let badgesHtml = '';
+                if (hasEvent || hasStation) {
+                    badgesHtml += '<div class="campaign-badges">';
+                    if (hasEvent) badgesHtml += '<span class="campaign-badge event-badge">⚠️ Active Event</span>';
+                    if (hasStation) badgesHtml += '<span class="campaign-badge station-badge">🛰️ Space Station</span>';
+                    badgesHtml += '</div>';
+                }
+
                 card.innerHTML = `
                     ${factionIconHtml}
+                    ${badgesHtml}
                     <h3 class="planet-name">${planet.name}</h3>
                     <p class="planet-sector">${planet.sector || 'Unknown Sector'}</p>
                     <div class="faction-info">
