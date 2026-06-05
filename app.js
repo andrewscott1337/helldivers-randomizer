@@ -205,7 +205,10 @@ async function fetchWarStatus() {
         if (assignments && assignments.length > 0) {
             const mo = assignments[0];
             moContent.innerHTML = `
-                <div class="mo-title">${mo.title || 'MAJOR ORDER'}</div>
+                <div class="mo-title-wrapper">
+                    <div class="mo-title">${mo.title || 'MAJOR ORDER'}</div>
+                    <img src="./all-icons/Faction_SVGS/Helldiver_Icon.svg" class="mo-icon" alt="Helldiver Icon">
+                </div>
                 <div class="mo-briefing">${mo.briefing || 'No briefing available.'}</div>
             `;
         } else {
@@ -237,7 +240,15 @@ async function fetchWarStatus() {
                 const card = document.createElement('div');
                 card.className = 'campaign-card';
 
+                const activeFaction = isDefending ? (planet.event.faction || 'Unknown') : (planet.currentOwner || 'Unknown');
+                let factionIconFile = '';
+                if (activeFaction.toLowerCase().includes('terminid')) factionIconFile = 'Terminid_Icon.svg';
+                else if (activeFaction.toLowerCase().includes('illuminate')) factionIconFile = 'Illuminate_Icon.svg';
+                else if (activeFaction.toLowerCase().includes('automaton')) factionIconFile = 'Automaton_Icon.svg';
+                const factionIconHtml = factionIconFile ? `<img src="./all-icons/Faction_SVGS/${factionIconFile}" class="faction-icon" alt="${activeFaction} Icon">` : '';
+
                 card.innerHTML = `
+                    ${factionIconHtml}
                     <h3 class="planet-name">${planet.name}</h3>
                     <p class="planet-sector">${planet.sector || 'Unknown Sector'}</p>
                     <div class="faction-info">
