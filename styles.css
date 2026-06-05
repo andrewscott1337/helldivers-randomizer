@@ -51,6 +51,14 @@ body, html {
     height: 100%;
 }
 
+@media (min-width: 601px) {
+    .terminal-container {
+        min-height: 0;
+        max-height: calc(100vh - 4rem);
+        overflow: hidden;
+    }
+}
+
 header {
     text-align: center;
     border-bottom: 2px solid var(--hd-blue);
@@ -134,6 +142,12 @@ h1 {
     box-shadow: 0 0 15px rgba(255, 231, 16, 0.4);
 }
 
+@media (min-width: 601px) {
+    .challenge-banner {
+        margin-bottom: 1.5vh;
+    }
+}
+
 .challenge-banner img {
     max-height: 40px;
     display: none; /* Hidden by default until successfully loaded */
@@ -199,6 +213,13 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+@media (min-width: 601px) {
+    .gear-card {
+        height: 100%;
+        max-height: 28vh;
+    }
 }
 
 #top-row .gear-card {
