@@ -419,7 +419,7 @@ function generateLoadout() {
 
         specialOrderBanner.innerHTML = '';
         const img = document.createElement('img');
-        img.src = `./challenge-icons/${iconName}`;
+        img.src = `./challenge-icons/${encodeURIComponent(iconName)}`;
         img.alt = challenge;
         img.loading = 'lazy';
         img.decoding = 'async';
@@ -431,7 +431,7 @@ function generateLoadout() {
         };
 
         const textSpan = document.createElement('span');
-        textSpan.textContent = `CAUTION: ${challenge}`;
+        textSpan.textContent = challenge;
 
         specialOrderBanner.appendChild(img);
         specialOrderBanner.appendChild(textSpan);
