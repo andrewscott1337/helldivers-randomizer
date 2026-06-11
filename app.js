@@ -211,7 +211,7 @@ async function fetchWarStatus() {
         const stations = stationsRes && stationsRes.ok ? await stationsRes.json() : null;
 
         const moContent = document.getElementById('major-order-content');
-        if (assignments && assignments.length > 0) {
+        if (Array.isArray(assignments) && assignments.length > 0) {
             const mo = assignments[0];
             moContent.innerHTML = `
                 <div class="mo-title-wrapper">
@@ -224,8 +224,8 @@ async function fetchWarStatus() {
             moContent.innerHTML = `<div class="mo-briefing">No active Major Order from Super Earth Command.</div>`;
         }
 
-        window.activePlanetEvents = events || [];
-        window.activeSpaceStations = stations || [];
+        window.activePlanetEvents = Array.isArray(events) ? events : [];
+        window.activeSpaceStations = Array.isArray(stations) ? stations : [];
 
         // Render Events & Space Stations
         const eventsContainer = document.getElementById('events-and-stations-container');
@@ -260,13 +260,13 @@ async function fetchWarStatus() {
         const grid = document.getElementById('campaigns-grid');
         grid.innerHTML = ''; // Clear loading state
 
-        if (campaigns && campaigns.length > 0) {
+        if (Array.isArray(campaigns) && campaigns.length > 0) {
             const fragment = document.createDocumentFragment();
             campaigns.forEach(campaign => {
                 const planet = campaign.planet;
                 const maxHealth = planet.maxHealth || 1000000;
                 const currentHealth = planet.health || 0;
-                const isDefending = planet.event !== null;
+                const isDefending = planet.event != null;
 
                 let progressPercent = 0;
                 if (isDefending && planet.event) {
