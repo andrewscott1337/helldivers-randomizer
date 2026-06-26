@@ -415,13 +415,13 @@ function generateLoadout() {
 
     if (specialOrderToggle && specialOrderToggle.checked && activeGear.specialOrders && activeGear.specialOrders.length > 0) {
         const challenge = getRandomItem(activeGear.specialOrders);
-        const iconName = challenge.replace(/[\s,]+/g, '_') + '.svg';
+        const iconName = challenge.replace(/[^a-zA-Z0-9]+/g, '_') + '.svg';
 
         specialOrderBanner.innerHTML = '';
         const img = document.createElement('img');
         img.src = `./challenge-icons/${encodeURIComponent(iconName)}`;
         img.alt = challenge;
-        img.loading = 'lazy';
+        // Removing lazy loading because images with display: none (set in CSS) won't trigger load events
         img.decoding = 'async';
         img.onerror = function() {
             this.style.display = 'none';
