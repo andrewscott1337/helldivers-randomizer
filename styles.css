@@ -268,6 +268,16 @@ button {
     font-size: 0.9rem;
 }
 
+.exclude-btn:hover {
+    background-color: #cc0000;
+    cursor: pointer;
+}
+
+.exclude-btn:focus-visible {
+    outline: 2px solid var(--hd-yellow);
+    outline-offset: 2px;
+}
+
 /* War Status Display */
 #war-status-display {
     display: flex;

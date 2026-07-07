@@ -544,6 +544,7 @@ function createCardElement(itemName, slotKey) {
     button.className = 'exclude-btn';
     button.setAttribute('data-slot', slotKey);
     button.setAttribute('data-item', itemName);
+    button.setAttribute('aria-label', "I don't have " + itemName);
     button.textContent = "I don't have this";
 
     card.appendChild(img);
