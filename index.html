@@ -28,6 +28,7 @@
             <button id="generate-btn" class="primary-btn">INITIALIZE DROP</button>
             <button id="reset-btn" class="secondary-btn">RESET ARMORY</button>
             <button id="war-status-btn" class="secondary-btn">WAR STATUS</button>
+            <button id="dispatches-btn" class="secondary-btn">DISPATCHES</button>
         </div>
 
         <div id="special-order-banner" class="challenge-banner" style="display: none;"></div>
@@ -56,6 +57,23 @@
                 <h2>ACTIVE CAMPAIGNS</h2>
                 <div id="campaigns-grid">
                     <!-- Campaigns injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <div id="dispatches-display" style="display: none;">
+            <div class="dispatches-grid">
+                <div id="dispatches-container" class="war-panel dispatches-column">
+                    <h2>DISPATCHES</h2>
+                    <div id="dispatches-content">
+                        <p>Fetching High Command Dispatches...</p>
+                    </div>
+                </div>
+                <div id="patch-notes-container" class="war-panel dispatches-column">
+                    <h2>PATCH NOTES</h2>
+                    <div id="patch-notes-content">
+                        <p>Fetching Super Earth Engineering Logs...</p>
+                    </div>
                 </div>
             </div>
         </div>

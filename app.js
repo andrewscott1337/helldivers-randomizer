@@ -165,18 +165,28 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('generate-btn').addEventListener('click', generateLoadout);
     document.getElementById('reset-btn').addEventListener('click', resetPoolAndClear);
     document.getElementById('war-status-btn').addEventListener('click', toggleWarStatus);
+    document.getElementById('dispatches-btn').addEventListener('click', toggleDispatches);
     document.addEventListener('click', handleExclude);
 });
 
 let isWarStatusView = false;
 let hasFetchedWarStatus = false;
+let isDispatchesView = false;
+let hasFetchedDispatches = false;
 
 function toggleWarStatus() {
     const loadoutDisplay = document.getElementById('loadout-display');
     const warStatusDisplay = document.getElementById('war-status-display');
+    const dispatchesDisplay = document.getElementById('dispatches-display');
     const warStatusBtn = document.getElementById('war-status-btn');
+    const dispatchesBtn = document.getElementById('dispatches-btn');
 
     isWarStatusView = !isWarStatusView;
+    if (isWarStatusView) {
+        isDispatchesView = false;
+        dispatchesDisplay.style.display = 'none';
+        dispatchesBtn.textContent = 'DISPATCHES';
+    }
 
     if (isWarStatusView) {
         loadoutDisplay.style.display = 'none';
@@ -189,6 +199,122 @@ function toggleWarStatus() {
         warStatusDisplay.style.display = 'none';
         loadoutDisplay.style.display = 'flex';
         warStatusBtn.textContent = 'WAR STATUS';
+    }
+}
+
+function toggleDispatches() {
+    const loadoutDisplay = document.getElementById('loadout-display');
+    const warStatusDisplay = document.getElementById('war-status-display');
+    const dispatchesDisplay = document.getElementById('dispatches-display');
+    const warStatusBtn = document.getElementById('war-status-btn');
+    const dispatchesBtn = document.getElementById('dispatches-btn');
+
+    isDispatchesView = !isDispatchesView;
+    if (isDispatchesView) {
+        isWarStatusView = false;
+        warStatusDisplay.style.display = 'none';
+        warStatusBtn.textContent = 'WAR STATUS';
+    }
+
+    if (isDispatchesView) {
+        loadoutDisplay.style.display = 'none';
+        dispatchesDisplay.style.display = 'flex';
+        dispatchesBtn.textContent = 'BACK TO ARMORY';
+        if (!hasFetchedDispatches) {
+            fetchDispatches();
+        }
+    } else {
+        dispatchesDisplay.style.display = 'none';
+        loadoutDisplay.style.display = 'flex';
+        dispatchesBtn.textContent = 'DISPATCHES';
+    }
+}
+
+function parseSteamBBCode(text) {
+    if (!text) return '';
+    let parsed = text
+        .replace(/\[b\](.*?)\[\/b\]/gi, '<strong>$1</strong>')
+        .replace(/\[i\](.*?)\[\/i\]/gi, '<em>$1</em>')
+        .replace(/\[u\](.*?)\[\/u\]/gi, '<u>$1</u>')
+        .replace(/\[h[1-6]\](.*?)\[\/h[1-6]\]/gi, '<h3>$1</h3>')
+        // Match lowercase and uppercase [P] and [/P] tags since the API returns mixed case or the styling forces it uppercase
+        .replace(/\[p\](.*?)\[\/p\]/gi, '<p>$1</p>')
+        .replace(/\[list\](.*?)\[\/list\]/gis, '<ul>$1</ul>')
+        .replace(/\[\*\].*?\[p\](.*?)\[\/p\]\[\/\*\]/gis, '<li>$1</li>')
+        .replace(/\[\*\].*?(.*?)\[\/\*\]/gis, '<li>$1</li>')
+        // General fallback for unparsed [p] or [/p] due to nesting
+        .replace(/\[p\]/gi, '<p>')
+        .replace(/\[\/p\]/gi, '</p>')
+        .replace(/\[url=(.*?)\](.*?)\[\/url\]/gi, '<a href="$1" target="_blank" rel="noopener noreferrer">$2</a>')
+        .replace(/\[img(.*?)\](.*?)\[\/img\]/gi, '') // Remove images for a cleaner layout
+        .replace(/\n/g, '<br>');
+    return parsed;
+}
+
+function parseDispatchText(text) {
+    if (!text) return '';
+    return text.replace(/<i=\d+>(.*?)<\/i>/gi, '<strong>$1</strong>').replace(/\n/g, '<br>');
+}
+
+async function fetchDispatches() {
+    const headers = {
+        'X-Super-Client': 'super-earth-loadout-generator',
+        'X-Super-Contact': 'anonymous'
+    };
+
+    try {
+        const [dispatchesRes, steamRes] = await Promise.all([
+            fetch('https://api.helldivers2.dev/api/v1/dispatches', { headers }).catch(e => null),
+            fetch('https://api.helldivers2.dev/api/v1/steam', { headers }).catch(e => null)
+        ]);
+
+        const dispatches = dispatchesRes && dispatchesRes.ok ? await dispatchesRes.json() : null;
+        const steamNews = steamRes && steamRes.ok ? await steamRes.json() : null;
+
+        const dispatchesContent = document.getElementById('dispatches-content');
+        if (dispatches && Array.isArray(dispatches) && dispatches.length > 0) {
+            let html = '';
+            // Show top 10 dispatches
+            const topDispatches = dispatches.slice(0, 10);
+            topDispatches.forEach(d => {
+                const date = new Date(d.published).toLocaleDateString();
+                html += `
+                    <div class="dispatch-item">
+                        <div class="dispatch-date">${date}</div>
+                        <div>${parseDispatchText(d.message)}</div>
+                    </div>
+                `;
+            });
+            dispatchesContent.innerHTML = html;
+        } else {
+            dispatchesContent.innerHTML = '<p>No High Command Dispatches available.</p>';
+        }
+
+        const patchNotesContent = document.getElementById('patch-notes-content');
+        if (steamNews && Array.isArray(steamNews) && steamNews.length > 0) {
+            let html = '';
+            // Show top 3 steam news
+            const topNews = steamNews.slice(0, 3);
+            topNews.forEach(n => {
+                const date = new Date(n.publishedAt).toLocaleDateString();
+                html += `
+                    <div class="patch-note-item">
+                        <div class="patch-note-title">${n.title || 'Update'}</div>
+                        <div class="patch-note-date">${date}</div>
+                        <div>${parseSteamBBCode(n.content)}</div>
+                    </div>
+                `;
+            });
+            patchNotesContent.innerHTML = html;
+        } else {
+            patchNotesContent.innerHTML = '<p>No Super Earth Engineering Logs available.</p>';
+        }
+
+        hasFetchedDispatches = true;
+    } catch (error) {
+        console.error('Error fetching dispatches:', error);
+        document.getElementById('dispatches-content').innerHTML = '<p>Failed to retrieve dispatches.</p>';
+        document.getElementById('patch-notes-content').innerHTML = '<p>Failed to retrieve patch notes.</p>';
     }
 }
 
