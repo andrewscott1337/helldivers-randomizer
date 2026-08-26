@@ -49,7 +49,8 @@
         "ARC-12 Blitzer",
         "VG-70 Variable",
         "FLAM-66 Torcher",
-        "JAR-5 Dominator"
+        "JAR-5 Dominator",
+        "R40-K Hot-Shot Marksman Rifle"
     ],
     "secondaryWeapons": [
         "P-2 Peacemaker",
@@ -73,7 +74,8 @@
         "CQC-19 Stun Lance",
         "CQC-30 Stun Baton",
         "CQC-42 Machete",
-        "CQC-73 Entrenchment Tool"
+        "CQC-73 Entrenchment Tool",
+        "P40-K Bolt Pistol"
     ],
     "grenades": [
         "G-6 Frag",
